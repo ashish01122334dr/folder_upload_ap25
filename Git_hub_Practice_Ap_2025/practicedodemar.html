@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(63, 138, 91);
+            text-align: center;
+            color: white;
+            text-decoration: underline;
+          text-underline-position: under;
+        }
+        p {
+            font-size: 50px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <p>Generate A <br>Random Password</p>
+    <input type="text" id="password" placeholder="Get Your Password"><br><br>
+    <button onclick="createPassword()">Generate Password</button>
+    
+    <script>
+       const passwordBox = document.getElementById("password");
+       const length = 12; // Fixed spelling
+
+       const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Removed extra "A"
+       const lowercase = "abcdefghijklmnopqrstuvwxyz";
+       const number = "0123456789";
+       const symbol = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+       const allChars = uppercase + lowercase + number + symbol; 
+
+      function createPassword() {
+          let password = '';
+
+          // Ensure at least one character from each category
+          password += uppercase[Math.floor(Math.random() * uppercase.length)];
+          password += lowercase[Math.floor(Math.random() * lowercase.length)];
+          password += number[Math.floor(Math.random() * number.length)];
+          password += symbol[Math.floor(Math.random() * symbol.length)];
+
+          // Fill the remaining characters
+          while (password.length < length) { // Fixed "lenght" to "length"
+              password += allChars[Math.floor(Math.random() * allChars.length)];
+          }
+
+          // Assign generated password to input field
+          passwordBox.value = password;
+      }
+    </script>
+</body>
+
+</html>
