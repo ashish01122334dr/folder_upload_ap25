@@ -1,0 +1,52 @@
+// index.js
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function startGame() {
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    console.log('Welcome to the Number Guessing Game!');
+    console.log('I\'m thinking of a number between 1 and 100.');
+
+    function askGuess() {
+        rl.question('Enter your guess: ', (answer) => {
+            const guess = parseInt(answer);
+            attempts++;
+
+            if (isNaN(guess)) {
+                console.log('Please enter a valid number!');
+                askGuess();
+            } else if (guess < secretNumber) {
+                console.log('Too low! Try again.');
+                askGuess();
+            } else if (guess > secretNumber) {
+                console.log('Too high! Try again.');
+                askGuess();
+            } else {
+                console.log(`Congratulations! You got it in ${attempts} attempts!`);
+                playAgain();
+            }
+        });
+    }
+
+    function playAgain() {
+        rl.question('Would you like to play again? (yes/no): ', (answer) => {
+            if (answer.toLowerCase() === 'yes') {
+                rl.close();
+                startGame();
+            } else {
+                console.log('Thanks for playing! Goodbye!');
+                rl.close();
+            }
+        });
+    }
+
+    askGuess();
+}
+
+startGame();
